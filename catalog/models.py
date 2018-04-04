@@ -16,6 +16,10 @@ class Category(models.Model):
         ordering = ['name']
 
 
+    def __str__(self):
+        return self.name
+
+
 class Product(models.Model):
     """
     Classe para modelagens simples de produtos
@@ -34,3 +38,7 @@ class Product(models.Model):
         verbose_name = 'Produto'
         verbose_name_plural = 'Produtos'
         ordering = ['name']
+
+
+    def __str__(self):
+        return self.name
