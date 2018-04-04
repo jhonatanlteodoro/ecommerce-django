@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
     #Meus apps
     'core',
+    'catalog',
 ]
 
 MIDDLEWARE = [
