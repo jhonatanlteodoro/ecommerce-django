@@ -41,6 +41,9 @@ INSTALLED_APPS = [
     #Meus apps
     'core',
     'catalog',
+
+    #lib para template
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [
