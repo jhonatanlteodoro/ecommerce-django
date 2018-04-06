@@ -56,6 +56,8 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
 ROOT_URLCONF = 'djangoecormmerce.urls'
 
 TEMPLATES = [
@@ -123,6 +125,11 @@ USE_L10N = True
 
 USE_TZ = True
 
+#E-mail
+#EMAIL_HOST = ''
+#EMAIL_HOST_USER = ''
+#EMAIL_HOST_PASSWORD = ''
+DEFAULT_FROM_EMAIL = 'admindjangoecmmerce@localhost'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
