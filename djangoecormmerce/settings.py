@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     #Meus apps
     'core',
     'catalog',
+    'accounts',
 
     #lib para template
     'widget_tweaks',
@@ -113,6 +114,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 
 #Configurações de usuário - Auth
+AUTH_USER_MODEL = 'accounts.User'
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'index'
 
