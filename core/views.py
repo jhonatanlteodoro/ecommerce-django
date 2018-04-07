@@ -2,15 +2,21 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.conf import settings
+from django.views.generic import View, TemplateView
 
 from catalog.models import Category
 from .forms import ContactForm
 
-def index(request):
-    context = {
-        'categories': Category.objects.all()
-    }
-    return render(request, 'index.html', context)
+#def index(request):
+#    context = {
+#        'categories': Category.objects.all()
+#    }
+#    return render(request, 'index.html', context)
+
+class IndexView(TemplateView):
+
+    template_name = 'index.html'
+
 
 
 def contact(request):
