@@ -8,6 +8,7 @@ from django.urls import reverse_lazy
 from django.views.generic import View
 from django.views.generic import TemplateView
 from django.views.generic import CreateView
+from django.contrib import messages
 
 from catalog.models import Category
 from .forms import ContactForm
@@ -25,13 +26,15 @@ class IndexView(TemplateView):
 
 
 def contact(request):
-    success = False
+    #success = False
     form = ContactForm(request.POST or None)
     if form.is_valid():
         form.send_mail()
-        success = True
+        #success = True
+    elif request.method == 'POST':
+        messages.error(request, 'Formulário inválido')
     context = {
         'form': form,
-        'success': success,
+        #'success': success,
     }
     return render(request, 'contact.html', context)
