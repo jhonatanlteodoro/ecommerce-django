@@ -2,7 +2,8 @@ from django.test import Client
 from django.test import TestCase
 from django.urls import reverse
 from django.contrib.auth import get_user_model
-
+from model_mommy import mommy
+from django.conf import settings
 
 User = get_user_model()
 class RegisterViewTestCase(TestCase):
@@ -28,3 +29,61 @@ class RegisterViewTestCase(TestCase):
         }
         response = self.client.post(self.register_url, data)
         self.assertFormError(response, 'form', 'email', 'Este campo é obrigatório.')
+
+
+
+class UpdateUserTestCase(TestCase):
+
+    def setUp(self):
+        self.client = Client()
+        self.url = reverse('accounts:update_user')
+        self.user = mommy.prepare(settings.AUTH_USER_MODEL)
+        self.user.set_password('123')
+        self.user.save()
+
+    def tearDown(self):
+        self.user.delete()
+
+    def test_update_user_ok(self):
+        data = {'name': 'humbree', 'email':'jovem@gmail.com'}
+        response = self.client.get(self.url)
+        self.assertEquals(response.status_code, 302)
+        self.client.login(username=self.user.username, password='123')
+        response = self.client.post(self.url, data)
+        accounst_index_url = reverse('accounts:index')
+        self.assertRedirects(response, accounst_index_url)
+        #user = User.objects.get(username=self.user.username)
+        self.user.refresh_from_db()
+        self.assertEquals(self.user.email, 'jovem@gmail.com')
+        self.assertEquals(self.user.name, 'humbree')
+
+    def test_update_user_error(self):
+        data = {}
+        self.client.login(username=self.user.username, password='123')
+        response = self.client.post(self.url, data)
+        self.assertFormError(response, 'form', 'email', 'Este campo é obrigatório.')
+
+
+
+class UpdatePasswordTestCase(TestCase):
+
+    def setUp(self):
+        self.client = Client()
+        self.url = reverse('accounts:update_password')
+        self.user = mommy.prepare(settings.AUTH_USER_MODEL)
+        self.user.set_password('123')
+        self.user.save()
+
+    def tearDown(self):
+        self.user.delete()
+
+    def test_update_password_ok(self):
+        data = {
+            'old_password': '123', 'new_password1':'teste1234',
+             'new_password2':'teste1234',
+        }
+        self.client.login(username=self.user.username, password='123')
+        response = self.client.post(self.url, data)
+        self.user.refresh_from_db()
+        #user = User.objects.get(username=self.user.username)
+        self.assertTrue(self.user.check_password('teste1234'))
