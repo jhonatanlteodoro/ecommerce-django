@@ -5,4 +5,5 @@ app_name = 'accounts'
 urlpatterns = [
     path('registro/', views.RegisterView.as_view(),
         {'template_name': 'register.html'}, name='register'),
+    path('', views.IndexView.as_view(), name='index'),
 ]

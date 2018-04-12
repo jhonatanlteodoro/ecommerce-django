@@ -3,6 +3,12 @@ from django.urls import reverse_lazy
 from .models import User
 from .forms import UserAdminCreationForm
 from django.views.generic import CreateView
+from django.views.generic import TemplateView
+from django.contrib.auth.mixins import LoginRequiredMixin
+
+class IndexView(LoginRequiredMixin, TemplateView):
+
+    template_name = 'accounts/index.html'
 
 
 
