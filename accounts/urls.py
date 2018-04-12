@@ -6,4 +6,5 @@ urlpatterns = [
     path('registro/', views.RegisterView.as_view(),
         {'template_name': 'register.html'}, name='register'),
     path('', views.IndexView.as_view(), name='index'),
+    path('alterar-dados/', views.UpdateUserView.as_view(), name='update_user'),
 ]
