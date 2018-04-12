@@ -42,7 +42,8 @@
 						<li><a href="{% url 'logout' %}">Sair</a></li>
             <li><a href="#">Minha Conta</a></li>
 						{% else %}
-						<li> <a href="{% url 'login' %}">Entrar</a></li>
+						<li><a href="{% url 'login' %}">Entrar</a></li>
+						<li><a href="{% url 'accounts:register' %}">Registre-se</a></li>
 						{% endif %}
           </ul>
         </div>
