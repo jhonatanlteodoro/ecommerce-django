@@ -1,0 +1,11 @@
+from django.urls import path
+from . import views
+
+app_name = 'checkout'
+urlpatterns = [
+    path(
+        'carrinho/adicionar/<str:slug>/', views.CreateCartItemView.as_view(),
+         name='create_cartitem'
+    ),
+
+]

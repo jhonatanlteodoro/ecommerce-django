@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'core',
     'catalog',
     'accounts',
-
+    'checkout',
+    
     #lib para template
     'widget_tweaks',
 ]
