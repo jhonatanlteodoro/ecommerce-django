@@ -1,14 +1,18 @@
 
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render
+from django.shortcuts import redirect
 from django.urls import reverse
 from django.views.generic import RedirectView
 from django.views.generic import TemplateView
 from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import CartItem
+from .models import Order
 from catalog.models import Product
 
 from django.forms import modelformset_factory
+
 
 class CreateCartItemView(RedirectView):
 
@@ -70,3 +74,20 @@ class CartItemView(TemplateView):
             messages.success(self.request, 'Carrinho Atualizado Com Sucesso!')
             context['formset'] = self.get_context_data(clear=True)
         return self.render_to_response(context['formset'])
+
+
+class CheckoutView(LoginRequiredMixin, TemplateView):
+
+    template_name = 'checkout/checkout.html'
+
+    def get(self, request, *args, **kwargs):
+        session_key = request.session.session_key
+        if session_key and CartItem.objects.filter(cart_key=session_key).exists():
+            cart_items = CartItem.objects.filter(cart_key=session_key)
+            order = Order.objects.create_order(
+                user=request.user, cart_items=cart_items
+            )
+        else:
+            messages.info(request, 'Não há itens no carrinho de compras.')
+            return redirect('checkout:cart_item')
+        return super(CheckoutView, self).get(request, *args, **kwargs)

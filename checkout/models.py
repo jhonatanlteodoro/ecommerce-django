@@ -18,6 +18,7 @@ class CartItemManager(models.Manager):
             )
         return cart_item, created
 
+
 class CartItem(models.Model):
 
     cart_key = models.CharField(
@@ -40,6 +41,17 @@ class CartItem(models.Model):
         return '{} [{}]'.format(self.product, self.quantity)
 
 
+class OrderManager(models.Manager):
+
+    def create_order(self, user, cart_items):
+        order = self.create(user=user)
+        for cart_item in cart_items:
+            order_item = OrderItem.objects.create(
+                order=order, quantity=cart_item.quantity,
+                product=cart_item.product, price=cart_item.price
+            )
+        return order
+
 
 class Order(models.Model):
 
@@ -50,6 +62,7 @@ class Order(models.Model):
     )
 
     PAYMENT_OPTIONS_CHOICES = (
+        ('deposit', 'Depósito'),
         ('pagaseguro', 'PagSeguro'),
         ('paypal', 'Paypal'),
     )
@@ -57,9 +70,11 @@ class Order(models.Model):
                              verbose_name='Usuário')
     status = models.IntegerField('Situação', choices=STATUS_CHOICES, default=0, blank=True)
     payment_option = models.CharField('Opções de Pagamento', choices=PAYMENT_OPTIONS_CHOICES,
-                                        max_length=20)
+                                        default='deposit', max_length=20)
     created = models.DateTimeField('Criado em', auto_now_add=True)
     modified = models.DateTimeField('Modificado em', auto_now=True)
+
+    objects = OrderManager()
 
     class Meta:
         verbose_name = 'Pedido'
