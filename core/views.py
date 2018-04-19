@@ -26,15 +26,12 @@ class IndexView(TemplateView):
 
 
 def contact(request):
-    #success = False
     form = ContactForm(request.POST or None)
     if form.is_valid():
         form.send_mail()
-        #success = True
     elif request.method == 'POST':
         messages.error(request, 'Formulário inválido')
     context = {
         'form': form,
-        #'success': success,
     }
     return render(request, 'contact.html', context)

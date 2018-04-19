@@ -51,7 +51,6 @@ class ContactViewTestCase(TestCase):
     def test_form_ok(self):
         data = {'name': 'testeste', 'message': 'legal mesmo esses testes', 'email': 'django@django.com'}
         response = self.client.post(self.url, data)
-        self.assertTrue(response.context['success'])
         self.assertEquals(len(mail.outbox), 1)
         self.assertEquals(mail.outbox[0].subject, 'Contado do django e-commerce')
 
