@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'catalog',
     'accounts',
     'checkout',
-    
+
     #lib para template
     'widget_tweaks',
 ]
@@ -56,6 +56,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    #custom middleware
+    'checkout.middleware.cart_item_middleware',
 ]
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
