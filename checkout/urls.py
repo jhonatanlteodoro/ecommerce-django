@@ -19,5 +19,9 @@ urlpatterns = [
         'notificacoes/pagseguro/', views.pagseguro_notification,
         name='pagseguro_notification'
     ),
+    path(
+        'finalizando/<int:pk>/paypal/', views.PaypalView.as_view(),
+        name='paypal_view'
+    ),
 
 ]

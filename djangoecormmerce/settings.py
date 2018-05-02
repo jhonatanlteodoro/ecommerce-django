@@ -44,8 +44,9 @@ INSTALLED_APPS = [
     'accounts',
     'checkout',
 
-    #lib para template
+    #libs
     'widget_tweaks',
+    'paypal.standard.ipn',
 ]
 
 MIDDLEWARE = [
@@ -157,11 +158,15 @@ USE_TZ = True
 DEFAULT_FROM_EMAIL = 'admindjangoecmmerce@localhost'
 
 #CONFIGURAÇÃO PAGSEGURO
-#Validar doc pagseguro 
+#Validar doc pagseguro
 PAGSEGURO_TOKEN = ''
 PAGSEGURO_EMAIL = 'configure@pagseguroemail.com.br'
 PAGSEGURO_SANDBOX = True
 
+#CONFIGURAÇÃO PAYPAL
+#Validar doc paypal
+PAYPAL_TEST = True
+PAYPAL_EMAIL = 'configure@paypalemail.com.br'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
