@@ -11,4 +11,13 @@ urlpatterns = [
     path('finalizando/', views.CheckoutView.as_view(), name='checkout'),
     path('meus_pedidos/', views.OrderListView.as_view(), name='order_list'),
     path('meus_pedidos/<int:pk>/', views.OrderDetailView.as_view(), name='order_detail'),
+    path(
+        'finalizando/<int:pk>/pagseguro/', views.PagSeguroView.as_view(),
+        name='pagseguro_view'
+    ),
+    path(
+        'notificacoes/pagseguro/', views.pagseguro_notification,
+        name='pagseguro_notification'
+    ),
+
 ]

@@ -156,6 +156,13 @@ USE_TZ = True
 #EMAIL_HOST_PASSWORD = ''
 DEFAULT_FROM_EMAIL = 'admindjangoecmmerce@localhost'
 
+#CONFIGURAÇÃO PAGSEGURO
+#Validar doc pagseguro 
+PAGSEGURO_TOKEN = ''
+PAGSEGURO_EMAIL = 'configure@pagseguroemail.com.br'
+PAGSEGURO_SANDBOX = True
+
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
