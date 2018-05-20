@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     #libs
     'widget_tweaks',
     'paypal.standard.ipn',
+    'easy_thumbnails',
 ]
 
 MIDDLEWARE = [
@@ -175,3 +176,14 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'staticfiles')
 ]
+
+MEDIA_URL = '/media/'
+
+MEDIA_ROOT =os.path.join(BASE_DIR, 'media')
+
+# Thumbnails
+THUMBNAIL_ALIASES = {
+    '':{
+    'product_image': {'size': (285, 160), 'crop': True},
+    },
+}
