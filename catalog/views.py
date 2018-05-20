@@ -13,14 +13,6 @@ class ProductListView(generic.ListView):
     template_name = 'catalog/product_list.html'
     paginate_by = 3
 
-product_list = ProductListView.as_view()
-
-#def product_list(request):
-#    context = {
-#        'product_list': Product.objects.all()
-#    }
-#    return render(request, 'catalog/product_list.html', context)
-
 
 class CategoryListView(generic.ListView):
 
@@ -38,15 +30,6 @@ class CategoryListView(generic.ListView):
                                                         )
         return context
 
-product_category_list = CategoryListView.as_view()
-
-#def product_category_list(request, slug):
-#    category = Category.objects.get(slug=slug)
-#    context = {
-#        'current_category': category,
-#        'product_list': Product.objects.filter(category=category),
-#    }
-#    return render(request, 'catalog/product_category_list.html', context)
 
 def product(request, slug):
     product = Product.objects.get(slug=slug)
