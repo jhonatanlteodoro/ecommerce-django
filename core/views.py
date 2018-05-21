@@ -1,37 +1,27 @@
 # coding=utf-8
-from django.shortcuts import render
-from django.http import HttpResponse
-from django.conf import settings
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth import get_user_model
-from django.urls import reverse_lazy
-from django.views.generic import View
-from django.views.generic import TemplateView
-from django.views.generic import CreateView
+from django.views import generic
 from django.contrib import messages
+from django.urls import reverse_lazy
 
-from catalog.models import Category
 from .forms import ContactForm
 
-#def index(request):
-#    context = {
-#        'categories': Category.objects.all()
-#    }
-#    return render(request, 'index.html', context)
-
-class IndexView(TemplateView):
+class IndexView(generic.TemplateView):
 
     template_name = 'index.html'
 
 
+class ContactView(generic.FormView):
 
-def contact(request):
-    form = ContactForm(request.POST or None)
-    if form.is_valid():
-        form.send_mail()
-    elif request.method == 'POST':
-        messages.error(request, 'Formulário inválido')
-    context = {
-        'form': form,
-    }
-    return render(request, 'contact.html', context)
+    template_name =  'contact.html'
+    form_class = ContactForm
+    success_url = reverse_lazy('contact')
+
+    def post(self, request, *args, **kwargs):
+        form = self.get_form(self.form_class)
+        if form.is_valid():
+            messages.success(request, 'Menssagem Enviada!')
+            form.send_mail()
+            return self.form_valid(form)
+        else:
+            messages.error(request, 'Formulário inválido')
+            return self.form_invalid(form)

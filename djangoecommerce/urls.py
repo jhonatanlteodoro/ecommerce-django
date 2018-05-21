@@ -11,7 +11,7 @@ from core import views
 
 urlpatterns = [
     path('', views.IndexView.as_view(), name='index'),
-    path('contato/', views.contact, name='contact'),
+    path('contato/', views.ContactView.as_view(), name='contact'),
     path('catalogo/', include('catalog.urls')),
     path('conta/', include('accounts.urls')),
     path('compras/', include('checkout.urls')),
