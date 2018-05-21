@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from django.shortcuts import get_object_or_404
 from django.views import generic
 
@@ -18,7 +17,7 @@ class CategoryListView(generic.ListView):
 
     template_name = 'catalog/product_category_list.html'
     context_object_name = 'product_list'
-    paginate_by = 3
+    paginate_by = 6
 
     def get_queryset(self):
         return Product.objects.filter(category__slug=self.kwargs['slug'])
@@ -32,7 +31,7 @@ class CategoryListView(generic.ListView):
 
 
 class ProductView(generic.TemplateView):
-    
+
     template_name = 'catalog/product.html'
 
     def get_context_data(self, **kwargs):
