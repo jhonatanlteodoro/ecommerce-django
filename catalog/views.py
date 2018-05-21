@@ -31,9 +31,11 @@ class CategoryListView(generic.ListView):
         return context
 
 
-def product(request, slug):
-    product = Product.objects.get(slug=slug)
-    context = {
-        'product': product,
-    }
-    return render(request, 'catalog/product.html', context)
+class ProductView(generic.TemplateView):
+    
+    template_name = 'catalog/product.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(ProductView, self).get_context_data(**kwargs)
+        context['product'] = get_object_or_404(Product, slug=self.kwargs['slug'])
+        return context
